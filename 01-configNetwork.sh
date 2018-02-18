@@ -3,6 +3,11 @@ echo '######## CONFIG NETWORK ########'
 echo ''
 echo 'CONFIG STATIC IP'
 
+if [ $1 = "-h" ]; then
+     echo 'This script need arguments to be run , the structure is like that :'
+     echo 'sh 01-configNetwork.sh [ipv4/ipv6/both] [ipv4/ipv6] [ipv6]'
+fi
+
 if [ $1 = "ipv4" ]; then
      ipv4Adress=$2
 elif [ $1 = "ipv6" ]; then

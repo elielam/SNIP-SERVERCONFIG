@@ -38,3 +38,5 @@ case "$choice" in
     echo 'Confirm with y or n , try again'
     ;;
 esac
+
+echo ''
