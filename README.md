@@ -25,13 +25,15 @@ Install apache2 and last PHP version with some utils.
 Permit to simply deploy your app with vHost creation and git deployement,
 with some tools choice like COMPOSER or NODEJS.
 
-//FOR USE JUST RUN sh 0x-xxxxxx.sh
-//ORDER IS PRIMARY
+FOR USE JUST RUN sh 0x-xxxxxx.sh
+
+ORDER IS PRIMARY
 
 ---------------------------------------------------------------
 
-// IF ERROR
-// TRY :
+IF ERROR
+
+TRY :
 
 sudo chmod 755 0x-xxxxxx.sh
 sudo vi 0x-xxxxxx.sh
