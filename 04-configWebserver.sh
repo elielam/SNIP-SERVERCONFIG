@@ -19,7 +19,7 @@ sudo apt-get install php -y
 
 echo ''
 
-sudo apt-get install php-xml
+sudo apt-get install php-xml -y
 
 echo ''
 
@@ -111,28 +111,35 @@ case "$choice" in
 
     read -p 'Install COMPOSER ? ( y or n ) : ' composerchoice
 
-    if [ $composerchoice = "y" | $composerchoice = "Y" ]; then
+    case "$composerchoice" in
+    "y" | "Y")
         echo ''
         sudo apt-get install composer -y
         echo ''
-    fi
+    ;;
+    esac
 
     read -p 'Install NODEJS ? ( y or n ) : ' nodechoice
 
-    if [ $nodechoice = "y" | $nodechoice = "Y" ]; then
+    case "$nodechoice" in
+    "y" | "Y")
         echo ''
         sudo apt-get install nodejs -y
         echo ''
         read -p 'Install NPM ? ( y or n ) : ' npmchoice
 
-        if [ $npmchoice = "y" | $npmchoice = "Y" ]; then
+        case "$npmchoice" in
+        "y" | "Y")
             echo ''
             sudo apt-get install npm -y
             echo ''
-        fi
+        ;;
+        esac
+
         read -p 'Install YARN ? ( y or n ) : ' yarnchoice
 
-        if [ $yarnchoice = "y" | $yarnchoice = "Y" ]; then
+        case "$yarnchoice" in
+        "y" | "Y")
             echo ''
             curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
             echo ''
@@ -142,8 +149,10 @@ case "$choice" in
             echo ''
             sudo apt-get install yarn -y
             echo ''
-        fi
-    fi
+        ;;
+        esac
+    ;;
+    esac
 
     echo 'CONFIG DOMAIN'
 
@@ -159,18 +168,19 @@ case "$choice" in
 
     read -p 'Clone from git ? ( y or n ) : ' gitchoice
 
-    if [ $gitchoice = "y" | $gitchoice = "Y" ]; then
+    case "$gitchoice" in
+    "y" | "Y")
         echo ''
         read -p 'Enter repository name ? ( myrepository.git ) :' gitrepo
         sudo git clone https://github.com/elielam/$gitrepo /var/www/$domainName/public_html
-    fi
-
-    if [ $gitchoice = "n" | $gitchoice = "N" ]; then
+    ;;
+    "n" | "N")
         sudo mkdir /var/www/$domainName/public_html
         {
             echo '<?php phpinfo(); ?>'
         } >/var/www/$domainName/public_html/index.php
-    fi
+    ;;
+    esac
 
     #VIRTUALHOST CONFIG
 
