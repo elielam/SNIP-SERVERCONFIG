@@ -19,6 +19,10 @@ sudo apt-get install php -y
 
 echo ''
 
+sudo apt-get install php-xml
+
+echo ''
+
 echo 'ALLOW UFW'
 
 echo ''
@@ -103,17 +107,70 @@ echo ''
 case "$choice" in
 "y" | "Y")
 
+    echo 'DEPLOYMENT TOOL'
+
+    read -p 'Install COMPOSER ? ( y or n ) : ' composerchoice
+
+    if [ $composerchoice = "y" | $composerchoice = "Y" ]; then
+        echo ''
+        sudo apt-get install composer -y
+        echo ''
+    fi
+
+    read -p 'Install NODEJS ? ( y or n ) : ' nodechoice
+
+    if [ $nodechoice = "y" | $nodechoice = "Y" ]; then
+        echo ''
+        sudo apt-get install nodejs -y
+        echo ''
+        read -p 'Install NPM ? ( y or n ) : ' npmchoice
+
+        if [ $npmchoice = "y" | $npmchoice = "Y" ]; then
+            echo ''
+            sudo apt-get install npm -y
+            echo ''
+        fi
+        read -p 'Install YARN ? ( y or n ) : ' yarnchoice
+
+        if [ $yarnchoice = "y" | $yarnchoice = "Y" ]; then
+            echo ''
+            curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+            echo ''
+            echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+            echo ''
+            sudo apt-get update -y
+            echo ''
+            sudo apt-get install yarn -y
+            echo ''
+        fi
+    fi
+
+    echo 'CONFIG DOMAIN'
+
+    echo ''
+
 	sudo rm -rf /var/www/html
 
    	read -p 'Name your domain ( name.lang : app.com ) : ' domainName
 
 	sudo mkdir /var/www/$domainName
 
-	sudo mkdir /var/www/$domainName/public_html
+	echo ''
 
-	{
-		echo '<?php phpinfo(); ?>'
-	} >/var/www/$domainName/public_html/index.php
+    read -p 'Clone from git ? ( y or n ) : ' gitchoice
+
+    if [ $gitchoice = "y" | $gitchoice = "Y" ]; then
+        echo ''
+        read -p 'Enter repository name ? ( myrepository.git ) :' gitrepo
+        sudo git clone https://github.com/elielam/$gitrepo /var/www/$domainName/public_html
+    fi
+
+    if [ $gitchoice = "n" | $gitchoice = "N" ]; then
+        sudo mkdir /var/www/$domainName/public_html
+        {
+            echo '<?php phpinfo(); ?>'
+        } >/var/www/$domainName/public_html/index.php
+    fi
 
     #VIRTUALHOST CONFIG
 

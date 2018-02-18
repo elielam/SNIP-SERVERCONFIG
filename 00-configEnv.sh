@@ -17,6 +17,18 @@ sudo apt-get upgrade -y
 
 echo ''
 
+echo 'TOOLS'
+
+echo ''
+
+echo 'ZIP - UNZIP TOOLS'
+
+echo ''
+
+sudo apt-get install zip unzip -y
+
+echo ''
+
 echo 'DIST-UPGRADE'
 
 echo ''
