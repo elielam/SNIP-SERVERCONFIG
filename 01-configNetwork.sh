@@ -24,6 +24,10 @@ read -p 'Enter interface name : ' interface
 
 echo ''
 
+sudo route -n
+
+echo ''
+
 read -p 'Enter gateway adress : ' gateway
 
 echo ''
