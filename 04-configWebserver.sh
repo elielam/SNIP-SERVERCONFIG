@@ -23,14 +23,6 @@ sudo apt-get install php-xml -y
 
 echo ''
 
-echo 'ALLOW UFW'
-
-echo ''
-
-sudo ufw allow 'Apache Full'
-
-echo ''
-
 echo 'MOD SECURITY'
 
 echo ''
