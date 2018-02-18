@@ -1,5 +1,5 @@
 
-Scripts for deploy web server on UBUNTU 17.10
+<h2> Scripts for deploy web server on UBUNTU 17.10 </h2>
 
 - 00 - ENV
 
@@ -25,9 +25,11 @@ Install apache2 and last PHP version with some utils.
 Permit to simply deploy your app with vHost creation and git deployement,
 with some tools choice like COMPOSER or NODEJS.
 
-FOR USE JUST RUN sh 0x-xxxxxx.sh
+- HOW TO USE 
 
-ORDER IS PRIMARY
+	  sudo sh 0x-xxxxxx.sh
+
+Run them in order , it's primary !
 
 ---------------------------------------------------------------
 
