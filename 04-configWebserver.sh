@@ -115,9 +115,10 @@ case "$choice" in
     "y" | "Y")
         echo ''
         sudo apt-get install composer -y
-        echo ''
     ;;
     esac
+
+    echo ''
 
     read -p 'Install NODEJS ? ( y or n ) : ' nodechoice
 
@@ -132,9 +133,10 @@ case "$choice" in
         "y" | "Y")
             echo ''
             sudo apt-get install npm -y
-            echo ''
         ;;
         esac
+
+        echo ''
 
         read -p 'Install YARN ? ( y or n ) : ' yarnchoice
 
@@ -148,11 +150,12 @@ case "$choice" in
             sudo apt-get update -y
             echo ''
             sudo apt-get install yarn -y
-            echo ''
         ;;
         esac
     ;;
     esac
+
+    echo ''
 
     echo 'CONFIG DOMAIN'
 
@@ -173,12 +176,14 @@ case "$choice" in
         echo ''
         read -p 'Enter repository name ? ( myrepository.git ) :' gitrepo
         sudo git clone https://github.com/elielam/$gitrepo /var/www/$domainName/public_html
+        cd /var/www/$domainName/public_html/
     ;;
     "n" | "N")
         sudo mkdir /var/www/$domainName/public_html
         {
             echo '<?php phpinfo(); ?>'
         } >/var/www/$domainName/public_html/index.php
+        cd /var/www/$domainName/public_html/
     ;;
     esac
 

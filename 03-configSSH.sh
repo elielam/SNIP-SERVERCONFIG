@@ -51,7 +51,7 @@ echo ''
 		echo '# Authentication:'
 		echo ''
 		echo 'LoginGraceTime 2m'
-		echo 'PermitRootLogin yes'
+		echo 'PermitRootLogin no'
 		echo '#StrictModes yes'
 		echo 'MaxAuthTries 5'
 		echo 'MaxSessions 5'
@@ -145,15 +145,6 @@ echo ''
 	} >/etc/ssh/sshd_config
 
 echo 'File sshd_config was created in /etc/ssh/'
-
-echo ''
-
-echo 'ALLOW UFW'
-
-echo ''
-
-sudo ufw allow ssh
-sudo ufw allow $sshport
 
 echo ''
 
