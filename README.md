@@ -35,14 +35,11 @@ IF ERROR
 
 TRY :
 
-sudo chmod 755 0x-xxxxxx.sh
+	sudo chmod 755 0x-xxxxxx.sh
 
-sudo vi 0x-xxxxxx.sh
-
+	sudo vi 0x-xxxxxx.sh
 	escape key
-	
 		:set formatfile=unix
-		
 		:x!
 
 launch again 
