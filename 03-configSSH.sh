@@ -1,23 +1,21 @@
 #!/bin/bash
-echo '######## CONFIG SSH ########'
-echo ''
 
+function sshInstall {
 echo 'INSTALL SSH'
-
 echo ''
-
 sudo apt-get install openssh-server -y
+}
 
-echo ''
-
-read -p 'Enter SSH PORT : ' sshport
-
-echo ''
-
-read -p 'How user.s do you want to allow ( user1 user2 user3 ) : ' alowusers
-
-echo ''
-
+function sshCreateConf {
+	read -p 'Enter SSH PORT : ' sshport
+	echo ''
+	read -p 'Allow root ? ( yes or no ) : ' allowRoot
+	echo ''
+	read -p 'How user.s do you want to allow ? ( user1 user2 user3 ) : ' allowUsers
+	echo ''
+	read -p 'Max authentification try ? : ' maxAuthTry
+	echo ''
+	read -p 'Max ssh sessions ? : ' maxSession
 	{
 		echo '#	$OpenBSD: sshd_config,v 1.101 2017/03/14 07:19:07 djm Exp $'
 		echo ''
@@ -46,15 +44,15 @@ echo ''
 		echo '# Logging'
 		echo 'SyslogFacility AUTH'
 		echo 'LogLevel INFO'
-		echo "AllowUsers $alowusers"
+		echo "AllowUsers $allowUsers"
 		echo ''
 		echo '# Authentication:'
 		echo ''
 		echo 'LoginGraceTime 2m'
-		echo 'PermitRootLogin no'
+		echo "PermitRootLogin $allowRoot"
 		echo '#StrictModes yes'
-		echo 'MaxAuthTries 5'
-		echo 'MaxSessions 5'
+		echo "MaxAuthTries $maxAuthTry"
+		echo "MaxSessions $maxSession"
 		echo ''
 		echo '#PubkeyAuthentication yes'
 		echo ''
@@ -103,7 +101,7 @@ echo ''
 		echo '# If you just want the PAM account and session checks to run without'
 		echo '# PAM authentication, then enable this but set PasswordAuthentication'
 		echo "# and ChallengeResponseAuthentication to 'no'."
-		echo 'UsePAM yes'
+		echo 'UsePAM no'
 		echo ''
 		echo '#AllowAgentForwarding yes'
 		echo '#AllowTcpForwarding yes'
@@ -143,22 +141,31 @@ echo ''
 		echo '#	PermitTTY no'
 		echo '#	ForceCommand cvs server'
 	} >/etc/ssh/sshd_config
+	echo ''
 
-echo 'File sshd_config was created in /etc/ssh/'
+	echo 'File sshd_config was created in /etc/ssh/'
+}
 
+function sshApply {
+	echo 'SSH APPLY'
+	echo ''
+	sudo /etc/init.d/ssh restart
+
+	echo ''
+
+	echo 'CONFIG FINISHED'
+	echo ''
+
+	# Modify in future to test if its ipv4 or ipv6 or both and display appropriate message
+	echo "Service SSH is know configured on port $sshport"
+	echo "You can know connect through ssh with user $alowusers"
+}
+
+echo '######## CONFIG SSH ########'
 echo ''
-
-echo 'SSH APPLY'
+sshInstall
 echo ''
-sudo /etc/init.d/ssh restart
-
+sshCreateConf
 echo ''
-
-echo 'CONFIG FINISHED'
-echo ''
-
-# Modify in future to test if its ipv4 or ipv6 or both and display appropriate message
-echo "Service SSH is know configured on port $sshport"
-echo "You can know connect through ssh with user $alowusers"
-
+sshApply
 echo ''
