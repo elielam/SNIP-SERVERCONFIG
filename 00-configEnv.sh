@@ -26,19 +26,19 @@ do
     esac
 done
 
-function envUpdate {
+function env_update {
 	echo 'UPDATE'
 	echo ''
 	sudo apt-get update -y
 }
 
-function envUpgrade {
+function env_upgrade {
 	echo 'UPGRADE'
 	echo ''
 	sudo apt-get upgrade -y
 }
 
-function envDistUpdate {
+function env_dist_upgrade {
 	if [ "$dist" == 1  ]; then
 		echo 'DIST-UPGRADE'
 		sudo apt-get dist-upgrade -y
@@ -49,7 +49,7 @@ function envDistUpdate {
 	fi
 }
 
-function envTools {
+function env_tools {
 	if [ "$dist" == 1  ]; then
 		echo 'INSTALL TOOLS'
 		echo ''
@@ -67,13 +67,13 @@ function envTools {
 
 echo '######## ENV BASICS ########'
 echo ''
-envUpdate
+env_update
 echo ''
-envUpgrade
+env_upgrade
 echo ''
-envTools
+env_tools
 echo ''
-envDistUpdate
+env_dist_upgrade
 echo ''
 
 
