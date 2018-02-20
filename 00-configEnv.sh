@@ -3,13 +3,22 @@
 dist=
 tools=
 
-if [ $1 = "t" || $2="t"]; then
+if [ $1 = "t" ]; then
 	tools=1
+elif [ $2 = "t" ]; then
+	tools=1
+else
+	tools=0
 fi
 
-if [ $1 = "d" || $2="d"]; then
+if [ $1 = "d" ]; then
 	dist=1
+elif [ $2 = "d" ]; then
+	dist=1
+else
+	dist=0
 fi
+
 
 if [ "$1" = "h" ]; then
 	echo "Config Environnment tool" 
