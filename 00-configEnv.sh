@@ -3,11 +3,11 @@
 dist=
 tools=
 
-if [ "$1" = "t" || "$2"="t"]; then
+if [ $1 = "t" || $2="t"]; then
 	tools=1
 fi
 
-if [ "$1" = "d" || "$2"="d"]; then
+if [ $1 = "d" || $2="d"]; then
 	dist=1
 fi
 
