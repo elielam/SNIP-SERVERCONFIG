@@ -8,47 +8,49 @@ dhcp=
 ftp=
 webdb=
 
-while getopts "iqcv:tb:" OPTION
-do
-    case $OPTION in
-    	v6)
-			ipv6=1
-			;;
-        w)
-            web=1
-            ;;
-        wd)
-            webdb=1
-            ;;
-        m)
-            mail=1
-            ;;
-        s)
-            ssh=1
-            ;;
-        d)
-            dhcp=1
-            ;;
-        f)
-            ftp=1
-            ;;
-        \?)
-            echo "Config UFW" 
-            echo " " 
-            echo "options:" 
-            echo "-v6               Configure ufw with ipv6" 
-            echo "-w                Web server profile"
-            echo "-wd               Web database server profile"
-            echo "-m                Mail server profile" 
-            echo "-s                SSH server profile" 
-            echo "-d                DHCP server profile" 
-            echo "-f                FTP server profile" 
-            echo " " 
-            echo "exemple : ./script.sh -v6 -w -m -s -f" 
-            exit 0
-            ;;
-    esac
-done
+if [ "$1" = "ipv6" || "$2"="ipv6" || "$3"="ipv6" || "$4"="ipv6" || "$5"="ipv6" || "$6"="ipv6" || "$7"="ipv6" ]; then
+	ipv6=1
+fi
+
+if [ "$1" = "web" || "$2"="web" || "$3"="web" || "$4"="web" || "$5"="web" || "$6"="web" || "$7"="web" ]; then
+	web=1
+fi
+
+if [ "$1" = "mail" || "$2"="mail" || "$3"="mail" || "$4"="mail" || "$5"="mail" || "$6"="mail" || "$7"="mail" ]; then
+	mail=1
+fi
+
+if [ "$1" = "ssh" || "$2"="ssh" || "$3"="ssh" || "$4"="ssh" || "$5"="ssh" || "$6"="ssh" || "$7"="ssh" ]; then
+	ssh=1
+fi
+
+if [ "$1" = "dhcp" || "$2"="dhcp" || "$3"="dhcp" || "$4"="dhcp" || "$5"="dhcp" || "$6"="dhcp" || "$7"="dhcp" ]; then
+	dhcp=1
+fi
+
+if [ "$1" = "ftp" || "$2"="ftp" || "$3"="ftp" || "$4"="ftp" || "$5"="ftp" || "$6"="ftp" || "$7"="ftp" ]; then
+	ftp=1
+fi
+
+if [ "$1" = "webdb" || "$2"="webdb" || "$3"="webdb" || "$4"="webdb" || "$5"="webdb" || "$6"="webdb" || "$7"="webdb" ]; then
+	webdb=1
+fi
+
+if [ "$1" = "h" ]; then
+	echo "Config UFW" 
+    echo " " 
+    echo "options:" 
+    echo "ipv6               Configure ufw with ipv6" 
+    echo "w                Web server profile"
+    echo "wd               Web database server profile"
+    echo "m                Mail server profile" 
+    echo "s                SSH server profile" 
+    echo "d                DHCP server profile" 
+    echo "f                FTP server profile" 
+    echo " " 
+    echo "exemple : ./script.sh ipv6 w m s f" 
+    exit 0
+fi
 
 function ifwIPV6 {
 	#some code to write in /etc/default/ufw and add or replace IPV6=yes

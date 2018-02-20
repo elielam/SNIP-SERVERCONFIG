@@ -4,31 +4,29 @@ webserver=
 php=
 deploy=
 
-while getopts "iqcv:tb:" OPTION
-do
-    case $OPTION in
-        ws)
-            webserver=1
-            ;;
-        p)
-            php=1
-            ;;
-        d)
-            deploy=1
-            ;;
-        \?)
-            echo "Config Web Server" 
-            echo " " 
-            echo "options:" 
-            echo "-ws                Install Web server" 
-            echo "-php               Install PHP and give you choice to install some tools"
-            echo "-d                 Deploy first app from git elielam,"
-            echo " " 
-            echo "exemple : ./script.sh -d -t" 
-            exit 0
-            ;;
-    esac
-done
+if [ "$1" = "ws" || "$2"="ws" || "$3"="ws"]; then
+    webserver=1
+fi
+
+if [ "$1" = "php" || "$2"="php" || "$3"="php"]; then
+    php=1
+fi
+
+if [ "$1" = "d" || "$2"="d" || "$3"="d"]; then
+    deploy=1
+fi
+
+if [ "$1" = "h" ]; then
+    echo "Config Web Server" 
+    echo " " 
+    echo "options:" 
+    echo "ws                Install Web server" 
+    echo "php               Install PHP and give you choice to install some tools"
+    echo "d                 Deploy first app from git elielam,"
+    echo " " 
+    echo "exemple : ./script.sh d t" 
+    exit 0
+fi
 
 function webServerInstall {
     if [ "$webserver" == 1 ]; then

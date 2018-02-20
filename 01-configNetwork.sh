@@ -4,36 +4,35 @@ dhcp=
 ipv4=0
 ipv6=0
 
-while getopts "iqcv:tb:" OPTION
-do
-    case $OPTION in
-        dhcp)
-            dhcp=1
-            ;;
-        ipv4)
-            ipv4=1
-            ;;
-        ipv6)
-            ipv6=1
-            ;;
-        both)
-            ipv4=1
-            ipv6=1
-            ;;
-        \?)
-            echo "Configure Network" 
-            echo " " 
-            echo "options:" 
-            echo "-dhcp                configure network with DHCP" 
-            echo "-ipv4                configure network with IPV4" 
-            echo "-ipv6                configure network with IPV6" 
-            echo "-both        		   configure network with IPV4/IPV6" 
-            echo " " 
-            echo "exemple : ./script.sh -ipv4" 
-            exit 0
-            ;;
-    esac
-done
+if [ "$1" = "dhcp" || "$2"="dhcp" || "$3"="dhcp" || "$4"="dhcp" ]; then
+	dhcp=1
+fi
+
+if [ "$1" = "ipv4" || "$2"="ipv4" || "$3"="ipv4" || "$4"="ipv4" ]; then
+	ipv4=1
+fi
+
+if [ "$1" = "ipv6" || "$2"="ipv6" || "$3"="ipv6" || "$4"="ipv6" ]; then
+	ipv6=1
+fi
+
+if [ "$1" = "both" || "$2"="both" || "$3"="both" || "$4"="both" ]; then
+	ipv4=1
+	ipv6=1
+fi
+
+if [ "$1" = "h" ]; then
+	echo "Configure Network" 
+    echo " " 
+    echo "options:" 
+    echo "dhcp                configure network with DHCP" 
+    echo "ipv4                configure network with IPV4" 
+    echo "ipv6                configure network with IPV6" 
+    echo "both        		   configure network with IPV4/IPV6" 
+    echo " " 
+    echo "exemple : ./script.sh ipv4" 
+    exit 0
+fi
 
 function networkCreateConf {
 

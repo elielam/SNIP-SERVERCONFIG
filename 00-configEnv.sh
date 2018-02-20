@@ -3,28 +3,25 @@
 dist=
 tools=
 
-while getopts "iqcv:tb:" OPTION
-do
-    case $OPTION in
-    	t)
-			tools=1
-			;;
-        d)
-            dist=1
-            ;;
-        \?)
-            echo "Config Environnment tool" 
-            echo " " 
-            echo "options:" 
-            echo "-d                Perform dist-upgrade" 
-            echo "-t                Perform some tools install"
-            echo "					ZIP,UNZIP," 
-            echo " " 
-            echo "exemple : ./script.sh -d -t" 
-            exit 0
-            ;;
-    esac
-done
+if [ "$1" = "t" || "$2"="t"]; then
+	tools=1
+fi
+
+if [ "$1" = "d" || "$2"="d"]; then
+	dist=1
+fi
+
+if [ "$1" = "h" ]; then
+	echo "Config Environnment tool" 
+    echo " " 
+    echo "options:" 
+    echo "d                Perform dist-upgrade" 
+    echo "t                Perform some tools install"
+    echo "					ZIP,UNZIP," 
+    echo " " 
+    echo "exemple : ./script.sh d t" 
+    exit 0
+fi
 
 function env_update {
 	echo 'UPDATE'
@@ -57,7 +54,7 @@ function env_tools {
         echo ''
         read -p "Install Ubuntu Desktop for graphical ENV ? ( y or n ) : " ubuntuDesktopChoice
         echo ''
-        if [[ "$ubuntuDesktopChoice" = "y" | "$ubuntuDesktopChoice" = "Y" ]]; then
+        if [[ "$ubuntuDesktopChoice" = "y" || "$ubuntuDesktopChoice" = "Y" ]]; then
             sudo apt-get install ubuntu-desktop
             echo ''
             echo 'You will need to restart system for use Ubuntu Desktop , please run : sudo shutdown -r now , to restart system !'
