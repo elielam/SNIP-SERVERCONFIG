@@ -3,9 +3,9 @@
 dist=
 tools=
 
-if [ $1 = "t" ]; then
+if [[ $1 == "t" ]]; then
 	tools=1
-elif [ $2 = "t" ]; then
+elif [[ $2 == "t" ]]; then
 	tools=1
 else
 	tools=0
