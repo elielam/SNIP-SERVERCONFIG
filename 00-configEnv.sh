@@ -11,7 +11,7 @@ if [[ $1 == "d" ]] || [[ $2 == "d" ]]; then
 	dist=1
 fi
 
-if [[ $1 == "h" ]; then
+if [[ $1 == "h" ]]; then
 	echo
 	echo "Config Environnment tool" 
     echo " " 
@@ -40,6 +40,7 @@ function env_upgrade {
 function env_dist_upgrade {
 	if [[ "$dist" == 1  ]]; then
 		echo 'DIST-UPGRADE'
+		echo ''
 		sudo apt-get dist-upgrade -y
 		echo ''
 	    echo 'Env is up-to-date !'
@@ -63,7 +64,7 @@ function env_tools {
         fi
     fi
 }
-
+echo
 echo '######## ENV BASICS ########'
 echo ''
 env_update

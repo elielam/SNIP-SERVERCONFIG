@@ -4,24 +4,24 @@ dhcp=
 ipv4=0
 ipv6=0
 
-if [ "$1" = "dhcp" || "$2"="dhcp" || "$3"="dhcp" || "$4"="dhcp" ]; then
+if [[ $1 == "dhcp" ]] || [[ $2 == "dhcp" ]] || [[ $3 == "dhcp" ]] || [[ $4 == "dhcp" ]]; then
 	dhcp=1
 fi
 
-if [ "$1" = "ipv4" || "$2"="ipv4" || "$3"="ipv4" || "$4"="ipv4" ]; then
+if [[ $1 == "ipv4" ]] || [[ $2 == "ipv4" ]] || [[ $3 == "ipv4" ]] || [[ $4 == "ipv4" ]]; then
 	ipv4=1
 fi
 
-if [ "$1" = "ipv6" || "$2"="ipv6" || "$3"="ipv6" || "$4"="ipv6" ]; then
+if [[ $1 == "ipv6" ]] || [[ $2 == "ipv6" ]] || [[ $3 == "ipv6" ]] || [[ $4 == "ipv6" ]]; then
 	ipv6=1
 fi
 
-if [ "$1" = "both" || "$2"="both" || "$3"="both" || "$4"="both" ]; then
+if [[ $1 == "both" ]] || [[ $2 == "both" ]] || [[ $3 == "both" ]] || [[ $4 == "both" ]]; then
 	ipv4=1
 	ipv6=1
 fi
 
-if [ "$1" = "h" ]; then
+if [[ $1 == "h" ]; then
 	echo "Configure Network" 
     echo " " 
     echo "options:" 
@@ -68,11 +68,11 @@ function networkCreateConf {
 			echo '     dhcp4: no'
 			echo '     dhcp6: no'
 
-			if [ "$ipv4" == 1 && "$ipv6" == 1 ]; then
+			if [[ $ipv4 == 1 ]] && [[ $ipv6 == 1 ]]; then
 				echo "     addresses: [$ipv4Adress/24, '$ipv6Adress/64']"
-			else [ "$ipv4" == 1 ]; then
+			elif [[ $ipv4 == 1 ]]; then
 				echo "     addresses: [$ipv4Adress/24]"
-			else [ "$ipv6" == 1 ]; then
+			elif [[ $ipv6 == 1 ]]; then
 		    	echo "     addresses: [$ipv6Adress/64]"
 			fi
 
@@ -123,20 +123,31 @@ function networkApply {
 	echo ''
 
 	# Modify in future to test if its ipv4 or ipv6 or both and display appropriate message
-	if [ "$ipv4" == 1 && "$ipv6" == 1 ]; then
+	if [[ $ipv4 == 1 ]] && [[ $ipv6 == 1 ]]; then
 		echo "Interface $interface is know configured on $ipv4Adress or $ipv6Adress"
-	else [ "$ipv4" == 1 ]; then
+	elif [[ $ipv4 == 1 ]]; then
 		echo "Interface $interface is know configured on $ipv4Adress"
-	else [ "$ipv6" == 1 ]; then
+	elif [[ $ipv6 == 1 ]]; then
     	echo "Interface $interface is know configured on $ipv6Adress"
 	fi
 	echo "The gateway is $gateway"
 
 }
 
+echo
 echo '######## CONFIG NETWORK ########'
 echo ''
 networkCreateConf
 echo ''
 networkApply
 echo ''
+
+unset dhcp
+unset ipv4
+unset ipv4Adress
+unset ipv4DHCPChoice
+unset ipv6
+unset ipv6Adress
+unset ipv6DHCPChoice
+unset gateway
+unset interface
