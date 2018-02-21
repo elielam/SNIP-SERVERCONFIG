@@ -4,19 +4,19 @@ webserver=
 php=
 deploy=
 
-if [ "$1" = "ws" || "$2"="ws" || "$3"="ws"]; then
+if [[ $1 == "ws" ]] || [[ $2 == "ws" ]] || [[ $3 == "ws" ]]; then
     webserver=1
 fi
 
-if [ "$1" = "php" || "$2"="php" || "$3"="php"]; then
+if [[ $1 == "php" ]] || [[ $2 == "php" ]] || [[ $3 == "php" ]]; then
     php=1
 fi
 
-if [ "$1" = "d" || "$2"="d" || "$3"="d"]; then
+if [[ $1 == "d" ]] || [[ $2 == "d" ]] || [[ $3 == "d" ]]; then
     deploy=1
 fi
 
-if [ "$1" = "h" ]; then
+if [[ $1 == "h" ]]; then
     echo "Config Web Server" 
     echo " " 
     echo "options:" 
@@ -29,21 +29,21 @@ if [ "$1" = "h" ]; then
 fi
 
 function webServerInstall {
-    if [ "$webserver" == 1 ]; then
+    if [[ $webserver == 1 ]]; then
         read -p 'What server do you want to install ? ( apache , nginx , lighttpd , tomcat , node ) : ' webServerType
-        echo ''
+        echo
 
         case "$webServerType" in
             "apache" )
                 echo 'INSTALL APACHE2 SERVER'
-                echo ''
+                echo
                 sudo apt-get install apache2 -y
-                echo ''
+                echo
                 webServerApacheSecurity
-                echo ''
+                echo
                 read -p 'Create virtualHost on apache server ? ( y or n ) : ' vHostChoice
-                echo ''
-                if [ "$vHostChoice" == "y" | "$vHostChoice" == "Y" ]; then
+                echo
+                if [[ $vHostChoice == "y" ]] || [[ $vHostChoice == "Y" ]]; then
                     apacheServerVHOST
                 else
                     sudo rm /var/www/html/index.html
@@ -74,15 +74,15 @@ function webServerInstall {
 
 function apacheServerSecurity {
     echo 'INSTALL MOD SECURITY'
-    echo ''
+    echo
     sudo apt-get install libapache2-modsecurity -y
-    echo ''
+    echo
     echo "INSTALL MOD-EVASIVE"
-    echo ''
+    echo
     sudo apt-get install libapache2-mod-evasive -y
-    echo ''
+    echo
     echo 'CONFIG MOD-EVASIVE'
-    echo ''
+    echo
 
     {
         echo '<IfModule mod_evasive20.c>'
@@ -100,9 +100,9 @@ function apacheServerSecurity {
     } >/etc/apache2/mods-enabled/evasive.conf
 
     echo 'File /etc/apache2/mods-enabled/evasive.conf was created !'
-    echo ''
+    echo
     echo 'CONFIG MOD-EVASIVE LOG'
-    echo ''
+    echo
     sudo rm -rf /var/log/mod_evasive
     sudo mkdir /var/log/mod_evasive
     sudo chown -R www-data:www-data /var/log/mod_evasive
@@ -111,7 +111,7 @@ function apacheServerSecurity {
 
 function apacheServerVHOST {
     echo 'CONFIG DOMAIN'
-    echo ''
+    echo
     sudo rm -rf /var/www/html
     read -p 'Name your domain ( name.lang : app.com ) : ' domainName
     sudo mkdir /var/www/$domainName/public_html
@@ -132,38 +132,38 @@ function apacheServerVHOST {
         echo "</VirtualHost>"
     } >/etc/apache2/sites-available/$domainName.conf
 
-    if [ "$deploy" != 1 ]; then
+    if [[ $deploy != 1 ]]; then
         {
             echo '<?php phpinfo(); ?>'
         } >/var/www/$domainName/public_html/index.php
     fi
 
     echo 'VirtualHost file was created in /etc/apache2/sites-available/ !'
-    echo ''
+    echo
     sudo a2ensite $domainName.conf
     echo "Apache vHost is install on www.$domainName"
 }
 
 function restartApacheServer {
     echo "RESTART APACHE2"
-    echo ''
+    echo
     sudo systemctl restart apache2
     echo 'Web Server is install and up-to-date'
-    echo ''
+    echo
     echo 'PHP VERSION'
-    echo ''
+    echo
     php -v
 }
 
 function webPHPInstall {
-    if [ "$php" == 1 ]; then
+    if [[ $php == 1 ]]; then
         echo 'INSTALL PHP LAST VERSION'
-        echo ''
+        echo
         sudo apt-get install php -y
-        echo ''
+        echo
 
         echo 'INSTALL PHP-TOOLS'
-        echo ''
+        echo
         sudo apt-get install php-xml -y
 
         echo 'INSTALL DEPLOYMENT TOOL'
@@ -171,41 +171,41 @@ function webPHPInstall {
 
         case "$composerchoice" in
         "y" | "Y")
-            echo ''
+            echo
             sudo apt-get install composer -y
         ;;
         esac
 
-        echo ''
+        echo
         read -p 'Install NODEJS ? ( y or n ) : ' nodechoice
 
         case "$nodechoice" in
         "y" | "Y")
-            echo ''
+            echo
             sudo apt-get install nodejs -y
-            echo ''
+            echo
             read -p 'Install NPM ? ( y or n ) : ' npmchoice
 
             case "$npmchoice" in
             "y" | "Y")
-                echo ''
+                echo
                 sudo apt-get install npm -y
             ;;
             esac
 
-            echo ''
+            echo
 
             read -p 'Install YARN ? ( y or n ) : ' yarnchoice
 
             case "$yarnchoice" in
             "y" | "Y")
-                echo ''
+                echo
                 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-                echo ''
+                echo
                 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-                echo ''
+                echo
                 sudo apt-get update -y
-                echo ''
+                echo
                 sudo apt-get install yarn -y
             ;;
             esac
@@ -213,7 +213,7 @@ function webPHPInstall {
 }
 
 function webDeployApp {
-    if [ "$deploy" == 1 ]; then
+    if [[ $deploy == 1 ]]; then
         sudo rm -rf /var/www/$domainName/public_html
         read -p 'Enter repository name ? ( myrepository.git ) :' gitrepo
         sudo git clone https://github.com/elielam/$gitrepo /var/www/$domainName/public_html
@@ -221,13 +221,26 @@ function webDeployApp {
     
 }
 
+echo
 echo '######## CONFIG WEBSERVER ########'
-echo ''
+echo
 webServerInstall
-echo ''
+echo
 webPHPInstall
-echo ''
+echo
 webDeployApp
-echo ''
+echo
 restartApacheServer
-echo ''
+echo
+
+unset webserver
+unset php
+unset deploy
+unset webServerType
+unset vHostChoice
+unset domainName
+unset deploy
+unset composerchoice
+unset nodechoice
+unset npmchoice
+unset yarnchoice

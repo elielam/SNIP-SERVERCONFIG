@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 dhcp=
 ipv4=0
@@ -21,39 +21,41 @@ if [[ $1 == "both" ]] || [[ $2 == "both" ]] || [[ $3 == "both" ]] || [[ $4 == "b
 	ipv6=1
 fi
 
-if [[ $1 == "h" ]; then
+if [[ $1 == "h" ]]; then
+	echo
 	echo "Configure Network" 
     echo " " 
     echo "options:" 
     echo "dhcp                configure network with DHCP" 
     echo "ipv4                configure network with IPV4" 
     echo "ipv6                configure network with IPV6" 
-    echo "both        		   configure network with IPV4/IPV6" 
+    echo "both        		  configure network with IPV4/IPV6" 
     echo " " 
     echo "exemple : ./script.sh ipv4" 
+    echo
     exit 0
 fi
 
 function networkCreateConf {
 
 	echo 'NETPLAN CONFIG'
-	echo ''
+	echo
 	read -p 'Enter interface name : ' interface
 
-	if [ "$dhcp" != 1 ]; then
+	if [[ $dhcp != 1 ]]; then
 
-		echo ''
+		echo
 		sudo route -n
-		echo ''
+		echo
 		read -p 'Enter gateway adress : ' gateway
 
-		if [ "$ipv4" == 1 ]; then
-			echo ''
+		if [[ $ipv4 == 1 ]]; then
+			echo
 			read -p 'Enter IPV4 adress ( x.x.x.x ) : ' ipv4Adress
 		fi
 
-		if [ "$ipv6" == 1 ]; then
-			echo ''
+		if [[ $ipv6 == 1 ]]; then
+			echo
 			read -p 'Enter IPV6 adress ( x.x.x.x ) : ' ipv6Adress
 		fi
 
@@ -83,9 +85,9 @@ function networkCreateConf {
 
 	else
 
-		echo ''
+		echo
 		read -p 'Use IPV4 DHCP ( yes or no ) : ' ipv4DHCPChoice
-		echo ''
+		echo
 		read -p 'Use IPV6 DHCP ( yes or no ) : ' ipv6DHCPChoice
 
 		{
@@ -102,7 +104,7 @@ function networkCreateConf {
 
 	fi
 
-	echo ''
+	echo
 	echo 'File 01-netcfg.yaml was created in /etc/netplan/'
 
 }
@@ -110,17 +112,17 @@ function networkCreateConf {
 function networkApply {
 
 	echo 'NETPLAN DEBUG'
-	echo ''
+	echo
 	sudo netplan --debug generate
 
-	echo ''
+	echo
 
 	echo 'NETPLAN APPLY'
 	sudo netplan apply
-	echo ''
+	echo
 
 	echo 'CONFIG FINISHED'
-	echo ''
+	echo
 
 	# Modify in future to test if its ipv4 or ipv6 or both and display appropriate message
 	if [[ $ipv4 == 1 ]] && [[ $ipv6 == 1 ]]; then
@@ -136,11 +138,11 @@ function networkApply {
 
 echo
 echo '######## CONFIG NETWORK ########'
-echo ''
+echo
 networkCreateConf
-echo ''
+echo
 networkApply
-echo ''
+echo
 
 unset dhcp
 unset ipv4

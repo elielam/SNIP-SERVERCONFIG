@@ -27,22 +27,22 @@ fi
 
 function env_update {
 	echo 'UPDATE'
-	echo ''
+	echo
 	sudo apt-get update -y
 }
 
 function env_upgrade {
 	echo 'UPGRADE'
-	echo ''
+	echo
 	sudo apt-get upgrade -y
 }
 
 function env_dist_upgrade {
 	if [[ "$dist" == 1  ]]; then
 		echo 'DIST-UPGRADE'
-		echo ''
+		echo
 		sudo apt-get dist-upgrade -y
-		echo ''
+		echo
 	    echo 'Env is up-to-date !'
     else
     	echo 'Your apps are update and upgrade !'
@@ -52,29 +52,30 @@ function env_dist_upgrade {
 function env_tools {
 	if [[ "$tools" == 1  ]]; then
 		echo 'INSTALL TOOLS'
-		echo ''
+		echo
 		sudo apt-get install zip unzip -y
-        echo ''
+        echo
         read -p "Install Ubuntu Desktop for graphical ENV ? ( y or n ) : " ubuntuDesktopChoice
-        echo ''
+        echo
         if [[ "$ubuntuDesktopChoice" = "y" || "$ubuntuDesktopChoice" = "Y" ]]; then
             sudo apt-get install ubuntu-desktop
-            echo ''
+            echo
             echo 'You will need to restart system for use Ubuntu Desktop , please run : sudo shutdown -r now , to restart system !'
         fi
     fi
 }
+
 echo
 echo '######## ENV BASICS ########'
-echo ''
+echo
 env_update
-echo ''
+echo
 env_upgrade
-echo ''
+echo
 env_tools
-echo ''
+echo
 env_dist_upgrade
-echo ''
+echo
 
 unset dist
 unset tools

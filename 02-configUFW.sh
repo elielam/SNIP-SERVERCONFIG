@@ -8,35 +8,35 @@ dhcp=
 ftp=
 webdb=
 
-if [ "$1" = "ipv6" || "$2"="ipv6" || "$3"="ipv6" || "$4"="ipv6" || "$5"="ipv6" || "$6"="ipv6" || "$7"="ipv6" ]; then
+if [[ $1 == "ipv6" ]] || [[ $2 == "ipv6" ]] || [[ $3 == "ipv6" ]] || [[ $4 == "ipv6" ]] || [[ $5 == "ipv6" ]] || [[ $6 == "ipv6" ]] || [[ $7 == "ipv6" ]]; then
 	ipv6=1
 fi
 
-if [ "$1" = "web" || "$2"="web" || "$3"="web" || "$4"="web" || "$5"="web" || "$6"="web" || "$7"="web" ]; then
+if [[ $1 == "web" ]] || [[ $2 == "web" ]] || [[ $3 == "web" ]] || [[ $4 == "web" ]] || [[ $5 == "web" ]] || [[ $6 == "web" ]] || [[ $7 == "web" ]]; then
 	web=1
 fi
 
-if [ "$1" = "mail" || "$2"="mail" || "$3"="mail" || "$4"="mail" || "$5"="mail" || "$6"="mail" || "$7"="mail" ]; then
+if [[ $1 == "mail" ]] || [[ $2 == "mail" ]] || [[ $3 == "mail" ]] || [[ $4 == "mail" ]] || [[ $5 == "mail" ]] || [[ $6 == "mail" ]] || [[ $7 == "mail" ]]; then
 	mail=1
 fi
 
-if [ "$1" = "ssh" || "$2"="ssh" || "$3"="ssh" || "$4"="ssh" || "$5"="ssh" || "$6"="ssh" || "$7"="ssh" ]; then
+if [[ $1 == "ssh" ]] || [[ $2 == "ssh" ]] || [[ $3 == "ssh" ]] || [[ $4 == "ssh" ]] || [[ $5 == "ssh" ]] || [[ $6 == "ssh" ]] || [[ $7 == "ssh" ]]; then
 	ssh=1
 fi
 
-if [ "$1" = "dhcp" || "$2"="dhcp" || "$3"="dhcp" || "$4"="dhcp" || "$5"="dhcp" || "$6"="dhcp" || "$7"="dhcp" ]; then
+if [[ $1 == "dhcp" ]] || [[ $2 == "dhcp" ]] || [[ $3 == "dhcp" ]] || [[ $4 == "dhcp" ]] || [[ $5 == "dhcp" ]] || [[ $6 == "dhcp" ]] || [[ $7 == "dhcp" ]]; then
 	dhcp=1
 fi
 
-if [ "$1" = "ftp" || "$2"="ftp" || "$3"="ftp" || "$4"="ftp" || "$5"="ftp" || "$6"="ftp" || "$7"="ftp" ]; then
+if [[ $1 == "ftp" ]] || [[ $2 == "ftp" ]] || [[ $3 == "ftp" ]] || [[ $4 == "ftp" ]] || [[ $5 == "ftp" ]] || [[ $6 == "ftp" ]] || [[ $7 == "ftp" ]]; then
 	ftp=1
 fi
 
-if [ "$1" = "webdb" || "$2"="webdb" || "$3"="webdb" || "$4"="webdb" || "$5"="webdb" || "$6"="webdb" || "$7"="webdb" ]; then
+if [[ $1 == "webdb" ]] || [[ $2 == "webdb" ]] || [[ $3 == "webdb" ]] || [[ $4 == "webdb" ]] || [[ $5 == "webdb" ]] || [[ $6 == "webdb" ]] || [[ $7 == "webdb" ]]; then
 	webdb=1
 fi
 
-if [ "$1" = "h" ]; then
+if [[ $1 == "h" ]]; then
 	echo "Config UFW" 
     echo " " 
     echo "options:" 
@@ -54,22 +54,22 @@ fi
 
 function ifwIPV6 {
 	#some code to write in /etc/default/ufw and add or replace IPV6=yes
-	if [ "$ipv6" == 1 ]; then
+	if [[ $ipv6 == 1 ]]; then
 		echo 'Do some stuff with /etc/default/ufw'
 	fi
 }
 
 function ufwEssentials {
 	echo 'BLOCK ALL ENTRY'
-	echo ''
+	echo
 	sudo ufw default deny incoming
 	sudo ufw default deny outgoing
 }
 
 function ufwAllowWeb {
-	if [ "$web" == 1 ]; then
+	if [[ $web == 1 ]]; then
 		echo 'ALLOW WEBSERVER'
-		echo ''
+		echo
 		
 
 		read -p "Enter server type : ( apache , nginx , lighttpd , tomcat , node ) " serverType
@@ -88,7 +88,7 @@ function ufwAllowWeb {
 			;;
 		"node")
 			read -p "Enter NodeServer port : " nodeServerPort
-			echo ''
+			echo
 			sudo ufw allow $nodeServerPort comment 'Server NODE'
 			;;
 		*)
@@ -99,9 +99,9 @@ function ufwAllowWeb {
 }
 
 function ufwAllowDB {
-	if [ "$webdb" == 1 ]; then
+	if [[ $webdb == 1 ]]; then
 		echo 'ALLOW DATABASE'
-		echo ''
+		echo
 		read -p "Enter db type : ( mysql , postgresql , mariadb , oracle ) " dbType
 		case "$dbType" in
 		"mysql")
@@ -124,9 +124,9 @@ function ufwAllowDB {
 }
 
 function ufwAllowMail {
-	if [ "$mail" == 1 ]; then
+	if [[ $mail == 1 ]]; then
 		echo 'ALLOW MAIL'
-		echo ''
+		echo
 		sudo ufw allow 25 comment 'Mail SMTP'
 		# sudo ufw allow 587 #SMTP OUTBOUND
 		sudo ufw allow 143 comment 'Mail IMAP'
@@ -137,55 +137,64 @@ function ufwAllowMail {
 }
 
 function ufwAllowSSH {
-	if [ "$ssh" == 1 ]; then
+	if [[ $ssh == 1 ]]; then
 		echo 'ALLOW SSH'
-		echo ''
+		echo
 		sudo ufw allow ssh comment 'SSH'
 	fi
 }
 
 function ufwAllowDHCP {
-	if [ "$dhcp" == 1 ]; then
+	if [[ $dhcp == 1 ]]; then
 		echo 'ALLOW DHCP'
-		echo ''
+		echo
 		sudo ufw allow 68 comment 'DHCP'
 	fi
 }
 
 function ufwAllowFTP {
-	if [ "$ftp" == 1 ]; then	
+	if [[ $ftp == 1 ]]; then	
 		echo 'ALLOW FTP'
-		echo ''
+		echo
 		sudo ufw allow ftp comment 'FTP'
 	fi
 }
 
 function ufwActivateConf {
 	echo 'ENABLE AND STATUS UFW'
-	echo ''
+	echo
 	sudo ufw enable
-	echo ''
+	echo
 	sudo ufw status verbose
 }
 
+echo
 echo '######## CONFIG UFW ########'
-echo ''
+echo 
 ufwEssentials
-echo ''
+echo 
 ufwAllowWeb
-echo ''
+echo
 ufwAllowDB
-echo ''
+echo
 ufwAllowMail
-echo ''
+echo
 ufwAllowSSH
-echo ''
+echo
 ufwAllowDHCP
-echo ''
+echo
 ufwAllowFTP
-echo ''
+echo
 ufwActivateConf
-echo ''
+echo
 
-
-
+unset ipv6
+unset web
+unset mail
+unset ssh
+unset dhcp
+unset ftp
+unset webdb
+unset serverType
+unset nodeServerPort
+unset dbType
