@@ -65,7 +65,7 @@ function ufwEssentials {
 	echo 'BLOCK ALL ENTRY'
 	echo
 	sudo ufw default deny incoming
-	sudo ufw default deny outgoing
+	sudo ufw default allow outgoing
 }
 
 function ufwAllowWeb {
@@ -81,10 +81,10 @@ function ufwAllowWeb {
 			sudo ufw allow 'Apache Full' comment 'Server Apache'
 			;;
 		"nginx")
-			sudo ufw allow 'Apache Full' comment 'Server NGINX'
+			echo 'enabled soon'
 			;;
 		"lighttpd")
-			sudo ufw allow 'Apache Full' comment 'Server LIGHTTPD'
+			echo 'enabled soon'
 			;;
 		"tomcat")
 			sudo ufw allow 8080 comment 'Server TOMCAT'

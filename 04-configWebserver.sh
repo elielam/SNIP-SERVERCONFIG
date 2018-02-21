@@ -159,6 +159,7 @@ function restartApacheServer {
 
 function webPHPInstall {
     if [[ $php == 1 ]]; then
+
         echo 'INSTALL PHP LAST VERSION'
         echo
         sudo apt-get install php -y
@@ -211,6 +212,9 @@ function webPHPInstall {
                 sudo apt-get install yarn -y
             ;;
             esac
+        ;;
+        esac
+
     fi  
 }
 
