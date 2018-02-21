@@ -72,7 +72,8 @@ function ufwAllowWeb {
 	if [[ $web == 1 ]]; then
 		echo 'ALLOW WEBSERVER'
 		echo
-		
+		sudo ufw allow 80 comment 'HTTP'
+		echo
 
 		read -p "Enter server type : ( apache , nginx , lighttpd , tomcat , node ) " serverType
 		case "$serverType" in
