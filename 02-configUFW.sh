@@ -12,27 +12,27 @@ if [[ $1 == "ipv6" ]] || [[ $2 == "ipv6" ]] || [[ $3 == "ipv6" ]] || [[ $4 == "i
 	ipv6=1
 fi
 
-if [[ $1 == "web" ]] || [[ $2 == "web" ]] || [[ $3 == "web" ]] || [[ $4 == "web" ]] || [[ $5 == "web" ]] || [[ $6 == "web" ]] || [[ $7 == "web" ]]; then
+if [[ $1 == "w" ]] || [[ $2 == "w" ]] || [[ $3 == "w" ]] || [[ $4 == "w" ]] || [[ $5 == "w" ]] || [[ $6 == "w" ]] || [[ $7 == "w" ]]; then
 	web=1
 fi
 
-if [[ $1 == "mail" ]] || [[ $2 == "mail" ]] || [[ $3 == "mail" ]] || [[ $4 == "mail" ]] || [[ $5 == "mail" ]] || [[ $6 == "mail" ]] || [[ $7 == "mail" ]]; then
+if [[ $1 == "m" ]] || [[ $2 == "m" ]] || [[ $3 == "m" ]] || [[ $4 == "m" ]] || [[ $5 == "m" ]] || [[ $6 == "m" ]] || [[ $7 == "m" ]]; then
 	mail=1
 fi
 
-if [[ $1 == "ssh" ]] || [[ $2 == "ssh" ]] || [[ $3 == "ssh" ]] || [[ $4 == "ssh" ]] || [[ $5 == "ssh" ]] || [[ $6 == "ssh" ]] || [[ $7 == "ssh" ]]; then
+if [[ $1 == "s" ]] || [[ $2 == "s" ]] || [[ $3 == "s" ]] || [[ $4 == "s" ]] || [[ $5 == "s" ]] || [[ $6 == "s" ]] || [[ $7 == "s" ]]; then
 	ssh=1
 fi
 
-if [[ $1 == "dhcp" ]] || [[ $2 == "dhcp" ]] || [[ $3 == "dhcp" ]] || [[ $4 == "dhcp" ]] || [[ $5 == "dhcp" ]] || [[ $6 == "dhcp" ]] || [[ $7 == "dhcp" ]]; then
+if [[ $1 == "d" ]] || [[ $2 == "d" ]] || [[ $3 == "d" ]] || [[ $4 == "d" ]] || [[ $5 == "d" ]] || [[ $6 == "d" ]] || [[ $7 == "d" ]]; then
 	dhcp=1
 fi
 
-if [[ $1 == "ftp" ]] || [[ $2 == "ftp" ]] || [[ $3 == "ftp" ]] || [[ $4 == "ftp" ]] || [[ $5 == "ftp" ]] || [[ $6 == "ftp" ]] || [[ $7 == "ftp" ]]; then
+if [[ $1 == "f" ]] || [[ $2 == "f" ]] || [[ $3 == "f" ]] || [[ $4 == "f" ]] || [[ $5 == "f" ]] || [[ $6 == "f" ]] || [[ $7 == "f" ]]; then
 	ftp=1
 fi
 
-if [[ $1 == "webdb" ]] || [[ $2 == "webdb" ]] || [[ $3 == "webdb" ]] || [[ $4 == "webdb" ]] || [[ $5 == "webdb" ]] || [[ $6 == "webdb" ]] || [[ $7 == "webdb" ]]; then
+if [[ $1 == "wd" ]] || [[ $2 == "wd" ]] || [[ $3 == "wd" ]] || [[ $4 == "wd" ]] || [[ $5 == "wd" ]] || [[ $6 == "wd" ]] || [[ $7 == "wd" ]]; then
 	webdb=1
 fi
 
@@ -41,7 +41,7 @@ if [[ $1 == "h" ]]; then
 	echo "Config UFW" 
     echo 
     echo "options:" 
-    echo "ipv6               Configure ufw with ipv6" 
+    echo "ipv6             Configure ufw with ipv6" 
     echo "w                Web server profile"
     echo "wd               Web database server profile"
     echo "m                Mail server profile" 
