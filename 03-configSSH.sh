@@ -1,5 +1,16 @@
 #!/bin/bash
 
+if [[ $1 == "h" ]]; then
+	echo
+	echo "Config UFW" 
+    echo 
+    echo 'Just run the script !'
+    echo 
+    echo "exemple : ./script.sh" 
+    echo
+    exit 0
+fi
+
 function sshInstall {
 echo 'INSTALL SSH'
 echo

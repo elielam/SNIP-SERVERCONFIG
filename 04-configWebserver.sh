@@ -17,14 +17,16 @@ if [[ $1 == "d" ]] || [[ $2 == "d" ]] || [[ $3 == "d" ]]; then
 fi
 
 if [[ $1 == "h" ]]; then
+    echo
     echo "Config Web Server" 
-    echo " " 
+    echo 
     echo "options:" 
     echo "ws                Install Web server" 
     echo "php               Install PHP and give you choice to install some tools"
     echo "d                 Deploy first app from git elielam,"
-    echo " " 
+    echo 
     echo "exemple : ./script.sh d t" 
+    echo
     exit 0
 fi
 

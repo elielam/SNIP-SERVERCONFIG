@@ -24,13 +24,13 @@ fi
 if [[ $1 == "h" ]]; then
 	echo
 	echo "Configure Network" 
-    echo " " 
+    echo 
     echo "options:" 
     echo "dhcp                configure network with DHCP" 
     echo "ipv4                configure network with IPV4" 
     echo "ipv6                configure network with IPV6" 
     echo "both        		  configure network with IPV4/IPV6" 
-    echo " " 
+    echo 
     echo "exemple : ./script.sh ipv4" 
     echo
     exit 0

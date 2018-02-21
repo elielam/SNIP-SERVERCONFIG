@@ -37,8 +37,9 @@ if [[ $1 == "webdb" ]] || [[ $2 == "webdb" ]] || [[ $3 == "webdb" ]] || [[ $4 ==
 fi
 
 if [[ $1 == "h" ]]; then
+	echo
 	echo "Config UFW" 
-    echo " " 
+    echo 
     echo "options:" 
     echo "ipv6               Configure ufw with ipv6" 
     echo "w                Web server profile"
@@ -47,8 +48,9 @@ if [[ $1 == "h" ]]; then
     echo "s                SSH server profile" 
     echo "d                DHCP server profile" 
     echo "f                FTP server profile" 
-    echo " " 
+    echo 
     echo "exemple : ./script.sh ipv6 w m s f" 
+    echo
     exit 0
 fi
 

@@ -14,12 +14,12 @@ fi
 if [[ $1 == "h" ]]; then
 	echo
 	echo "Config Environnment tool" 
-    echo " " 
+    echo 
     echo "options:" 
     echo "d                Perform dist-upgrade" 
     echo "t                Perform some tools install"
     echo "					ZIP,UNZIP," 
-    echo " " 
+    echo 
     echo "exemple : ./script.sh d t" 
     echo
     exit 0
