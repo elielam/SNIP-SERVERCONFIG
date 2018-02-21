@@ -106,7 +106,7 @@ function apacheServerSecurity {
     echo 'CONFIG MOD-EVASIVE LOG'
     echo
     sudo rm -rf /var/log/mod_evasive
-    sudo mkdir /var/log/mod_evasive
+    sudo mkdir -p /var/log/mod_evasive
     sudo chown -R www-data:www-data /var/log/mod_evasive
     echo 'Directory /var/log/mod_evasive was created and assign owner to www-data !'
 }
@@ -116,7 +116,7 @@ function apacheServerVHOST {
     echo
     sudo rm -rf /var/www/html
     read -p 'Name your domain ( name.lang : app.com ) : ' domainName
-    sudo mkdir /var/www/$domainName/public_html
+    sudo mkdir -p /var/www/$domainName/public_html
     sudo rm /etc/apache2/sites-available/000-default.conf
 
     {
