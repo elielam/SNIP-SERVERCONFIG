@@ -3,24 +3,16 @@
 dist=
 tools=
 
-if [[ $1 == "t" ]]; then
+if [[ $1 == "t" ]] || [[ $2 == "t" ]]; then
 	tools=1
-elif [[ $2 == "t" ]]; then
-	tools=1
-else
-	tools=0
 fi
 
-if [ $1 = "d" ]; then
+if [[ $1 == "d" ]] || [[ $2 == "d" ]]; then
 	dist=1
-elif [ $2 = "d" ]; then
-	dist=1
-else
-	dist=0
 fi
 
-
-if [ "$1" = "h" ]; then
+if [[ $1 == "h" ]; then
+	echo
 	echo "Config Environnment tool" 
     echo " " 
     echo "options:" 
@@ -29,6 +21,7 @@ if [ "$1" = "h" ]; then
     echo "					ZIP,UNZIP," 
     echo " " 
     echo "exemple : ./script.sh d t" 
+    echo
     exit 0
 fi
 
@@ -45,7 +38,7 @@ function env_upgrade {
 }
 
 function env_dist_upgrade {
-	if [ "$dist" == 1  ]; then
+	if [[ "$dist" == 1  ]]; then
 		echo 'DIST-UPGRADE'
 		sudo apt-get dist-upgrade -y
 		echo ''
@@ -56,7 +49,7 @@ function env_dist_upgrade {
 }
 
 function env_tools {
-	if [ "$dist" == 1  ]; then
+	if [[ "$tools" == 1  ]]; then
 		echo 'INSTALL TOOLS'
 		echo ''
 		sudo apt-get install zip unzip -y
@@ -82,6 +75,9 @@ echo ''
 env_dist_upgrade
 echo ''
 
+unset dist
+unset tools
+unset ubuntuDesktopChoice
 
 
     
