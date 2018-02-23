@@ -1,6 +1,15 @@
 
 <h2> Scripts for deploy web server on UBUNTU 17.10 </h2>
 
+<h6> CONFIGAIOSCRIPT </h6>
+
+<blockcode>
+Mix of all script before this little text !
+</blockcode>
+
+<p></p>
+<p></p>
+
 - 00 - ENV
 
 Do clean update , upgrade and if you want dist-upgrade.
